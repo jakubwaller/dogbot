@@ -32,7 +32,8 @@ breeds_full = run_request("GET", "https://api.thedogapi.com/v1/breeds")
 def senddogbybreed(update: Update, context: CallbackContext) -> None:
     """Sends a message with three inline buttons attached."""
     keyboard = [
-        InlineKeyboardButton(breed["name"], callback_data=breed["name"] + "__" + breed["id"]) for breed in breeds_full
+        InlineKeyboardButton(breed["name"], callback_data=breed["name"] + "__" + str(breed["id"]))
+        for breed in breeds_full
     ]
 
     chunk_size = 3
