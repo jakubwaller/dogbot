@@ -1,0 +1,7 @@
+[run]
+omit =
+    setup.py
+    versioneer.py
+    dogbot/_version.py
+    dogbot/tests/*
+    */__init__.py

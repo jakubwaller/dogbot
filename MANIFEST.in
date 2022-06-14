@@ -1,0 +1,2 @@
+include versioneer.py
+include dogbot/_version.py
