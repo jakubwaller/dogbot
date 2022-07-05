@@ -81,6 +81,8 @@ def senddog(update: Update, context: CallbackContext, breed=None, gif=False) -> 
 
     if gif:
         suffix = "?mime_types=gif"
+    elif len(suffix) == 0:
+        suffix = "?mime_types=jpg,png"
 
     url = run_request(
         "GET",
