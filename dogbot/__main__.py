@@ -2,6 +2,7 @@ import datetime
 import html
 import json
 import logging
+import random
 import traceback
 
 import pandas as pd
@@ -36,7 +37,9 @@ def senddogbybreed(update: Update, context: CallbackContext) -> None:
         for breed in breeds_full
     ]
 
-    chunk_size = 5
+    random.shuffle(keyboard)
+
+    chunk_size = 3
     chunks = [keyboard[x : x + chunk_size] for x in range(0, len(keyboard), chunk_size)]
 
     reply_markup = InlineKeyboardMarkup(chunks)
