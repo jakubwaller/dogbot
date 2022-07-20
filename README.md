@@ -47,3 +47,7 @@ source setup-local-venv.sh
 ```shell
 ./docker-run.sh
 ```
+
+## Sources
+
+Inspired by https://github.com/python-telegram-bot/python-telegram-bot/wiki/InlineKeyboard-Example
