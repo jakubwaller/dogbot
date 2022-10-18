@@ -87,17 +87,34 @@ def senddog(update: Update, context: CallbackContext, breed=None, gif=False) -> 
     elif len(suffix) == 0:
         suffix = "?mime_types=jpg,png"
 
-    url = run_request(
-        "GET",
-        f"https://api.thedogapi.com/v1/images/search{suffix}",
-        num_of_tries=3,
-        request_headers={"Content-Type": "application/json", "x-api-key": dog_api_key},
-    )[0]["url"]
+    logger.info(suffix)
 
-    if url.endswith(".gif"):
-        context.bot.send_animation(update.message.chat.id, url)
-    else:
-        context.bot.send_photo(update.message.chat.id, url)
+    num_of_max_tries = 5
+    num_of_tries = 1
+    success = False
+
+    while num_of_tries <= num_of_max_tries and not success:
+        try:
+            num_of_tries += 1
+
+            url = run_request(
+                "GET",
+                f"https://api.thedogapi.com/v1/images/search{suffix}",
+                num_of_tries=5,
+                request_headers={"Content-Type": "application/json", "x-api-key": dog_api_key},
+            )[0]["url"]
+
+            if url.endswith(".gif"):
+                context.bot.send_animation(update.message.chat.id, url)
+            else:
+                context.bot.send_photo(update.message.chat.id, url)
+
+            success = True
+        except Exception as e:
+            if num_of_tries == num_of_max_tries:
+                raise e
+            else:
+                logger.error(e)
 
     global df
 
@@ -139,8 +156,9 @@ def error_handler(update: object, context: CallbackContext) -> None:
         "</pre>\n\n"
         f"<pre>context.chat_data = {html.escape(str(context.chat_data))}</pre>\n\n"
         f"<pre>context.user_data = {html.escape(str(context.user_data))}</pre>\n\n"
-        f"<pre>{html.escape(tb_string)}</pre>"
+        f"<pre>{html.escape(tb_string)}"
     )
+    message = message[:4090] + "</pre>"
 
     # Finally, send the message
     context.bot.send_message(chat_id=developer_chat_id, text=message, parse_mode=ParseMode.HTML)
