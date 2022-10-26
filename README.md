@@ -1,5 +1,7 @@
 # Dog Bot
 
+![screenshot](screenshot.jpg)
+
 This cool Telegram DogBot can send images/gifs of dogs. Either randomly or by breed.
 
 The bot is running on my Raspberry Pi and can be found here https://t.me/send_random_dog_bot 
