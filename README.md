@@ -1,6 +1,6 @@
 # Dog Bot
 
-![screenshot](screenshot.jpg)
+![trailer](trailer.gif)
 
 This cool Telegram DogBot can send images/gifs of dogs. Either randomly or by breed.
 
